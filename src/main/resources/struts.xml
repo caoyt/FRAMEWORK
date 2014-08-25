@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!-- 是否支持动态调用 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+
+	<!-- 配置为开发模式 -->
+	<constant name="struts.devMode" value="true" />
+
+	<!-- 当struts的配置文件修改后,系统是否自动重新加载该文件,默认值为false(生产环境下使用), 开发阶段最好打开 （当devMode为true的时候它也为true） -->
+	<!-- <constant name="struts.configuration.xml.reload" value="true" /> -->
+
+	<!-- 设置浏览器是否缓存静态内容,默认值为true(生产环境下使用),开发阶段最好关闭 -->
+	<constant name="struts.serve.static.browserCache" value="false" />
+
+	<!-- 配置扩展名为action -->
+	<constant name="struts.action.extension" value="action" />
+
+	<!-- 搜索视图资源的路径 -->
+	<constant name="struts.convention.result.path" value="/WEB-INF" />
+
+	<!-- 默认的视图主题 -->
+	<constant name="struts.ui.theme" value="simple" />
+
+
+	<!-- action对象是由Spring来创建 -->
+	<constant name="struts.objectFactory" value="spring" />
+
+	<!-- 文件上传方式 -->
+	<constant name="struts.multipart.parser" value="pell" />
+
+	<!-- 上传文件的临时保存路径，该属性的默认值是javax.servlet.context.tempdir -->
+	<constant name="struts.multipart.saveDir" value="C:/temp" />
+
+	<!-- 文件上传中请求内容允许的最大字节数,上传的文件的总大小(2G),并不是单个文件的大小 -->
+	<constant name="struts.multipart.maxSize" value="2097152000" />
+	
+	<!-- 指定使用注解标注的控制器的默认包。可以在这个默认包中配置全局信息 -->
+	<constant name="struts.convention.default.parent.package" value="globalPackage" />
+
+	<package name="globalPackage" extends="convention-default" namespace="/">
+		<interceptors>
+			
+			<!-- 登录检测拦截器 -->
+			<interceptor name="loginIntercepter" class="com.caoyt.framework.interceptor.LoginIntercepter" />
+
+			<interceptor-stack name="globalStack">
+				<!-- 基于paramsPrepareParamsStack, 增加store interceptor保证actionMessage在redirect后不会丢失 -->
+				<interceptor-ref name="store">  
+                	<param name="operationMode">AUTOMATIC</param>  
+                </interceptor-ref>  
+                
+                <!-- 用于限制上传文件类型 -->
+                <!--
+                <interceptor-ref name="fileUpload">
+                	<param name="allowedTypes">image/png</param>
+                </interceptor-ref>
+                -->
+                
+                
+                <interceptor-ref name="defaultStack"/>
+                
+                <!-- 引入登录检测拦截器 -->
+                <interceptor-ref name="loginIntercepter" />
+                
+                <interceptor-ref name="paramsPrepareParamsStack" /> 
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 配置globalStack为默认拦截器 -->
+		<default-interceptor-ref name="globalStack" />
+		
+		
+	</package>
+
+
+
+</struts>

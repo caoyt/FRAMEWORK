@@ -1,0 +1,7 @@
+
+
+2014-08-22
+	1.ZipInputStream读取中文文件的时候会有乱码问题
+	2.重新设计TSysUser|TSysDept|TSysRole
+
+

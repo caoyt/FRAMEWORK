@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>FCKeditor测试</title>
+	<script src="./jquery-1.7.1.js"></script>
+	<script src="../ckeditor.js"></script>
+	<script src="../adapters/jquery.js"></script>
+	<script src="./ICkeditor.js"></script>
+	<link href="sample.css" rel="stylesheet">
+	<script>
+		
+
+		
+		$(function(){
+			CKEDITOR.replace( 'editor1', {
+				//uiColor: '#14B8C4', //自定义界面的颜色
+				
+				/*toolbar: [
+					[ 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ],
+					[ 'FontSize', 'TextColor', 'BGColor' ]
+				],*/   //自定义工具栏
+				//toolbar:'Basic'
+				//language:'zh-cn', //界面语言
+				//width:550, //设置宽度
+				//height:100
+				//format_tags:'p;h1;h2;h3', //字体大小样式
+				//font_names:'宋体',
+				//font_defaultLabel:'Times New Roman'
+				//fontSize_sizes:'12 Pixels/12px;Big/2.3em;30 Percent More/130%;Bigger/larger;Very Small/x-small'
+				//font_names:'宋体;楷体_GB2312'
+			});
+		});
+	
+		
+		
+		
+	</script>
+
+</head>
+<body>
+	
+	<form action="" method="post">
+		<textarea cols="100" id="editor1" name="editor1" rows="10">&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
+	</form>
+
+		
+</body>
+</html>

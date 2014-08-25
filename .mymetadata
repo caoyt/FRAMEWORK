@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="JAVA_FRAMEWORK"
+  id="myeclipse.1405516055550"
+  context-root="/JAVAFRAMEWORK"
+  j2ee-spec="5.0"
+  archive="JAVA_FRAMEWORK.war">
+  <attributes>
+    <attribute name="webrootdir" value="/src/main/webApp" />
+  </attributes>
+</project-module>
+

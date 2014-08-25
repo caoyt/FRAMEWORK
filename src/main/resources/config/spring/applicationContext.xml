@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    	http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd"
+	default-lazy-init="true">
+
+	<!-- 启动依赖注入注解解析器 -->
+	<context:annotation-config />
+
+	<!-- 启动类注解解析器(基本扫描包) -->
+	<context:component-scan base-package="com.caoyt.framework" />
+
+	<!-- 引入properties文件 采用属性占位符的方式 -->
+	<context:property-placeholder location="classpath:config/database.properties" />
+
+	<!-- hibernate数据源配置 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+
+		<!-- 连接池启动时候的初始值 -->
+		<property name="initialSize" value="${initialSize}" />
+
+		<!-- 连接池的最大值 -->
+		<property name="maxActive" value="${maxActive}" />
+
+		<!-- 最大空闲时，当经过一个高峰时间后，连接池可以慢慢将已经用不到的连接慢慢释放一部分， 一直减少到maxIdle为止 -->
+
+		<property name="maxIdle" value="${maxIdle}" />
+
+		<!-- 最小空闲值，当空闲的连接数量小于阀门值时，连接池就会申请一些去连接，以免洪峰来时来不及申请 -->
+		<property name="minIdle" value="${minIdle}" />
+
+	</bean>
+
+	<!-- 定义SessionFactory(hiberante二级缓存) -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<!-- hibernate的数据源 -->
+		<property name="dataSource" ref="dataSource" />
+
+
+		<!-- 用于配置hibernate的属性信息 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+
+
+		<!-- jbpm4.4的映射文件 -->
+		<property name="mappingResources">
+			<list>
+				<value>jbpm.repository.hbm.xml</value>
+				<value>jbpm.execution.hbm.xml</value>
+				<value>jbpm.history.hbm.xml</value>
+				<value>jbpm.task.hbm.xml</value>
+				<value>jbpm.identity.hbm.xml</value>
+			</list>
+		</property>
+
+		<!--
+			配置实体类注解扫描路径，需要注意的是，要比实际的包路径少以及目录。例如TUser的路径是com.caoyt.oa.pojo.TUser，但是这里必须配置为com.caoyt.oa
+		-->
+		<property name="packagesToScan" value="com.caoyt.framework.*" />
+	</bean>
+
+	<!--
+		HibernateTemplate 然后注入sessionFactory这样就不用继承HibernateDaoSupport类了
+	-->
+	<!--
+		<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" /> </bean>
+	-->
+
+
+	<!-- Spring提供的hibernate事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 使用事务注解方式 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+
+	<!-- 配置processEngine对象 -->
+	<bean id="springHelper" class="org.jbpm.pvm.internal.processengine.SpringHelper">
+		<property name="jbpmCfg" value="jbpm.cfg.xml"></property>
+	</bean>
+
+	<bean id="processEngine" factory-bean="springHelper" factory-method="createProcessEngine" />
+
+</beans>
+
+
