@@ -6,16 +6,10 @@ package com.caoyt.framework.utils;
  * @email caoyingtong@41zone.cc
  * @date 2014-8-20 上午09:35:30
  * 
- * UUID
+ * UID
  */
 public class UID {
 	public static String randomUUID(){
 		return java.util.UUID.randomUUID().toString().replace('-', '0');
-	}
-	
-	
-	
-	public void test(){
-		
 	}
 }
