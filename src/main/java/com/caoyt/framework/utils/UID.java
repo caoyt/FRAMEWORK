@@ -13,6 +13,9 @@ public class UID {
 		return java.util.UUID.randomUUID().toString().replace('-', '0');
 	}
 	
+	public void test(){
+		
+	}
 	
 	
 	
