@@ -2,8 +2,6 @@ package com.caoyt.framework.base.impl;
 
 import java.lang.reflect.ParameterizedType;
 
-import org.apache.struts2.ServletActionContext;
-
 import com.caoyt.framework.pojo.TSysUser;
 import com.caoyt.framework.utils.Constant;
 import com.opensymphony.xwork2.ActionContext;
