@@ -5,10 +5,6 @@ import java.util.Map;
 import org.jbpm.api.model.OpenExecution;
 import org.jbpm.api.task.Assignable;
 import org.jbpm.api.task.AssignmentHandler;
-import org.jbpm.pvm.internal.task.OpenTask;
-
-import com.caoyt.framework.pojo.TApplication;
-import com.caoyt.framework.pojo.TApproveInfo;
 
 /**
  * @author caoyt(曹颖桐)
