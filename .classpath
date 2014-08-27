@@ -50,9 +50,9 @@
 	<classpathentry kind="lib" path="src/main/webApp/WEB-INF/lib/jbpm-console-integration.jar"/>
 	<classpathentry kind="lib" path="src/main/webApp/WEB-INF/lib/jbpm-console-reports.jar"/>
 	<classpathentry kind="lib" path="src/main/webApp/WEB-INF/lib/jbpm-db.jar"/>
-	<classpathentry kind="lib" path="src/main/webApp/WEB-INF/lib/jbpm-examples-tests.jar"/>
+	<classpathentry kind="lib" path="src/main/webApp/WEB-INF/lib/jbpm-examples-tests.jar" sourcepath="F:/02development/01JBPM/01jbpm-4.4/02jbpm-src/jbpm-4.4-src.zip"/>
 	<classpathentry kind="lib" path="src/main/webApp/WEB-INF/lib/jbpm-jboss.jar"/>
-	<classpathentry kind="lib" path="src/main/webApp/WEB-INF/lib/jbpm-test-db-tests.jar"/>
+	<classpathentry kind="lib" path="src/main/webApp/WEB-INF/lib/jbpm-test-db-tests.jar" sourcepath="F:/02development/01JBPM/01jbpm-4.4/02jbpm-src/jbpm-4.4-src.zip"/>
 	<classpathentry kind="lib" path="src/main/webApp/WEB-INF/lib/jbpm-tomcat6.jar"/>
 	<classpathentry kind="lib" path="src/main/webApp/WEB-INF/lib/jbpm.jar" sourcepath="F:/02development/01JBPM/01jbpm-4.4/02jbpm-src/jbpm-4.4-src.zip"/>
 	<classpathentry kind="lib" path="src/main/webApp/WEB-INF/lib/joda-time.jar"/>

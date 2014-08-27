@@ -1,12 +1,15 @@
 package com.caoyt.framework.pojo;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -30,6 +33,8 @@ public class TApplicationTemplate implements Serializable {
 	private String processDefinitionKey;
 	// 文件路径
 	private String path;
+	
+	private Set<TApplication> application;
 
 	public TApplicationTemplate() {
 	}
@@ -79,5 +84,15 @@ public class TApplicationTemplate implements Serializable {
 	public void setPath(String path) {
 		this.path = path;
 	}
+
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="applicationTemplate")
+	public Set<TApplication> getApplication() {
+		return application;
+	}
+
+	public void setApplication(Set<TApplication> application) {
+		this.application = application;
+	}
+	
 	
 }

@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -87,7 +86,7 @@ public class TApplication implements Serializable {
 		this.id = id;
 	}
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="APPLICATIONTEMPLATE_ID")
 	public TApplicationTemplate getApplicationTemplate() {
 		return applicationTemplate;

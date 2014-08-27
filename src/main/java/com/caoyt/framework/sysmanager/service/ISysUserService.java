@@ -8,7 +8,9 @@ public interface ISysUserService {
 	
 	void save(TSysUser sysUser);
 	
-	TSysUser getById(Long id);
+	TSysUser sysUser(Long id);
 	
 	List<TSysUser> getAll();
+	
+	TSysUser getById(Long id);
 }

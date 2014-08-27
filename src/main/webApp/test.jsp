@@ -27,7 +27,8 @@
 	<a href="${path }/web/template/appTemplate!list.action" target="_blank;">发起申请</a>
 	<br/><br/><br/>
 	<a href="${path }/workflow/handler/workflow!myApplicationList.action" target="_blank;">申请列表</a>
-	
+	<br/><br/><br/>
+	<a href="${path }/workflow/handler/workflow!myTaskList.action" target="_blank;">个人任务列表</a>
 	
 </body>
 </html>

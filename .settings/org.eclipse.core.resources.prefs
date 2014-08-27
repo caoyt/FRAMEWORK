@@ -1,4 +1,5 @@
+#Tue Aug 26 15:00:12 CST 2014
 eclipse.preferences.version=1
 encoding//src/main/resources/log4j.properties=UTF-8
-encoding//src/main/webApp/js/jquery.checkbox.js=UTF-8
+encoding//src/main/webApp/js/checkbox/jquery.checkbox.js=UTF-8
 encoding/<project>=UTF-8

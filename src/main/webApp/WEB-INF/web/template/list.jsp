@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="/common/taglibs.jsp" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -13,6 +12,10 @@
 		window.location.href="appTemplate!downloadHandler.action?id="+id;
 	}
 
+	function del(id){
+		window.location.href="appTemplate!delTemplate.action?appTemplateId="+id;
+	}
+
 </script>
 
 </head>
@@ -24,7 +27,7 @@
 		<tr>
 			<td><a href="${path }/workflow/handler/workflow!addUI.action?templateId=${list.id}">${list.name }</a></td>
 			<td>
-				<a href="javascript:;">删除</a>
+				<a href="javascript:;" onclick="del('${list.id }');">删除</a>
 				<a href="javascript:;" onclick="downloadF('${list.id}');">下载</a>
 				
 			</td>

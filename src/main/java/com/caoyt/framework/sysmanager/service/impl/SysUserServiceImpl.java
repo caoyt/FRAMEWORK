@@ -35,6 +35,11 @@ public class SysUserServiceImpl implements ISysUserService{
 		return this.sysUserDao.getAll();
 	}
 
+	@Override
+	public TSysUser sysUser(Long id) {
+		return null;
+	}
+
 	
 	
 }

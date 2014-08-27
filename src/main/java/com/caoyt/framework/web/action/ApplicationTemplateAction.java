@@ -117,7 +117,7 @@ public class ApplicationTemplateAction extends ModelDrivenBaseAction<TApplicatio
 	 * 
 	 * @return
 	 */
-	public String delete(){
+	public String delTemplate(){
 		this.applicationTemplateService.delete(appTemplateId);
 		return "toList";
 	}

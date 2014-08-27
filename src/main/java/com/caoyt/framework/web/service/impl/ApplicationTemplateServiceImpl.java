@@ -10,5 +10,5 @@ import com.caoyt.framework.web.service.IApplicationTemplateService;
 @Service
 @Transactional
 public class ApplicationTemplateServiceImpl extends BaseDaoImpl<TApplicationTemplate> implements IApplicationTemplateService{
-
+	
 }

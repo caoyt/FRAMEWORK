@@ -6,5 +6,4 @@ import com.caoyt.framework.pojo.TApplicationTemplate;
 
 public interface IApplicationTemplateService extends IBaseDao<TApplicationTemplate>{
 	
-	
 }

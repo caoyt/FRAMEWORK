@@ -1,6 +1,7 @@
 package com.caoyt.framework.workflow.action;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -15,7 +16,9 @@ import org.springframework.context.annotation.Scope;
 import com.caoyt.framework.base.impl.BaseAction;
 import com.caoyt.framework.pojo.TApplication;
 import com.caoyt.framework.pojo.TApplicationTemplate;
+import com.caoyt.framework.pojo.TApproveInfo;
 import com.caoyt.framework.pojo.TSysUser;
+import com.caoyt.framework.pojo.TaskView;
 import com.caoyt.framework.sysmanager.service.ISysUserService;
 import com.caoyt.framework.utils.Constant;
 import com.caoyt.framework.utils.FileHandlerUtils;
@@ -36,7 +39,10 @@ import com.caoyt.framework.workflow.service.IApplicationService;
 @Action("workflow")
 @Results({
 	@Result(name="addUI", location="addUI.jsp"),
+	@Result(name="approveUI", location="approveUI.jsp"),
 	@Result(name="list", location="list.jsp"),
+	@Result(name="myTaskList", location="myTaskList.jsp"),
+	@Result(name="toMyTaskList", location="workflow!myTaskList.action", type="redirectAction"),
 	@Result(name="toList", location="workflow!myApplicationList.action", type="redirectAction")
 })
 public class WorkFlowAction extends BaseAction{
@@ -55,6 +61,9 @@ public class WorkFlowAction extends BaseAction{
 	private IApplicationService applicationService;
 	
 	
+	
+	
+	//property
 	private File upload;
 	private String uploadFileName;
 	
@@ -62,7 +71,13 @@ public class WorkFlowAction extends BaseAction{
 	
 	private List<TApplication> applicationList;
 	
+	private List<TaskView> taskView;
 	
+	
+	private Long applicationId;
+	private String taskId;
+	private boolean approval;
+	private String comment;
 	
 	
 	
@@ -72,6 +87,14 @@ public class WorkFlowAction extends BaseAction{
 	public String addUI(){
 		
 		return "addUI";
+	}
+	
+	/**
+	 * 审批处理页面 
+	 */
+	public String approveUI(){
+		
+		return "approveUI";
 	}
 	
 	/**
@@ -117,6 +140,41 @@ public class WorkFlowAction extends BaseAction{
 	}
 	
 
+	/**
+	 * 待我审批(我的任务列表)
+	 */
+	public String myTaskList(){
+		TSysUser sysUser = this.sysUserService.getById(8L);
+		this.taskView = this.applicationService.getMyTaskViewList(sysUser);
+		
+		return "myTaskList";
+	}
+	
+	/**
+	 * 审批任务 
+	 */
+	public String approveHandler(){
+		
+		System.out.println("approval-->"+approval);
+		System.out.println("taskId-->"+taskId);
+		
+		TSysUser sysUser = this.sysUserService.getById(8L);
+		TApplication application = this.applicationService.getById(applicationId);
+		
+		TApproveInfo approveInfo = new TApproveInfo();
+		approveInfo.setApproval(approval);
+		approveInfo.setApproveTime(new Date());
+		approveInfo.setComment(comment);
+		approveInfo.setSysUser(sysUser); //设置当前登录用户
+		approveInfo.setApplication(application);
+		
+		//审批
+		this.applicationService.approve(approveInfo, taskId);
+		
+		
+		return "toMyTaskList";
+	}
+	
 	
 	//===============get/set===============
 
@@ -150,6 +208,46 @@ public class WorkFlowAction extends BaseAction{
 
 	public void setApplicationList(List<TApplication> applicationList) {
 		this.applicationList = applicationList;
+	}
+
+	public List<TaskView> getTaskView() {
+		return taskView;
+	}
+
+	public void setTaskView(List<TaskView> taskView) {
+		this.taskView = taskView;
+	}
+
+	public Long getApplicationId() {
+		return applicationId;
+	}
+
+	public void setApplicationId(Long applicationId) {
+		this.applicationId = applicationId;
+	}
+
+	public String getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
+	}
+
+	public boolean isApproval() {
+		return approval;
+	}
+
+	public void setApproval(boolean approval) {
+		this.approval = approval;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 	

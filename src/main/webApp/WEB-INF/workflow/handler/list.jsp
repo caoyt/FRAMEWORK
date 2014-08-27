@@ -26,8 +26,9 @@
 			<tr>
 				<td style="border:2px solid yellow;">${list.title }</td>
 				<td style="border:2px solid yellow;">
+					意见：
 					<c:forEach items="${list.approveInfo}" var="info">
-						是否通过：${info.approval }||意见：${info.comment }
+						${info.comment }||
 					</c:forEach>
 				</td>
 				<td style="border:2px solid yellow;">${list.status }</td>
