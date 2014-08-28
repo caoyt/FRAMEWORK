@@ -8,7 +8,10 @@
 <title>个人申请列表</title>
 
 <script type="text/javascript">
-		
+
+function approveHistory(applicationId){
+	window.location.href = "workflow!approveHistory.action?applicationId="+applicationId;
+}
 	
 </script>
 
@@ -21,6 +24,7 @@
 			<th>名称</th>
 			<th>审核信息</th>
 			<th>状态</th>
+			<th>操作</th>
 		</tr>
 		<c:forEach items="${applicationList}" var="list">
 			<tr>
@@ -32,6 +36,9 @@
 					</c:forEach>
 				</td>
 				<td style="border:2px solid yellow;">${list.status }</td>
+				<td style="border:2px solid yellow;">
+					<a href="javascript:;" onclick="approveHistory('${list.id}');">查看流转记录</a>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

@@ -1,6 +1,7 @@
 package com.caoyt.framework.workflow.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.caoyt.framework.base.IBaseDao;
 import com.caoyt.framework.pojo.TApplication;
@@ -41,7 +42,15 @@ public interface IApplicationService extends IBaseDao<TApplication>{
 	/**
 	 * @param approveInfo 审核信息
 	 * @param taskId 任务ID
+	 * @param outcome 连线的名称
 	 */
-	void approve(TApproveInfo approveInfo, String taskId);
+	void approve(TApproveInfo approveInfo, String taskId, String outcome);
+	
+	
+	/**
+	 * @param taskId 任务ID
+	 * @return 指定活动所有流出的连线名称
+	 */
+	Set<String> getOutcomesByTaskId(String taskId);
 	
 }

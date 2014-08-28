@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -103,7 +104,7 @@ public class ApplicationServiceImpl extends BaseDaoImpl<TApplication> implements
 	
 	
 	@Override
-	public void approve(TApproveInfo approveInfo, String taskId) {
+	public void approve(TApproveInfo approveInfo, String taskId, String outcome) {
 		
 		//保存审核信息
 		getSession().save(approveInfo);
@@ -118,7 +119,12 @@ public class ApplicationServiceImpl extends BaseDaoImpl<TApplication> implements
 		this.processEngine.getTaskService().setVariables(taskId, variables);
 		
 		//办理任务
-		this.processEngine.getTaskService().completeTask(taskId);
+		if(null == outcome || "".equals(outcome)){
+			this.processEngine.getTaskService().completeTask(taskId);
+		}else{
+			this.processEngine.getTaskService().completeTask(taskId,outcome);
+		}
+		
 		
 		//获取所属的流程实例,如果取不到,代表流程已经结束
 		ProcessInstance pi = this.processEngine.getExecutionService().findProcessInstanceById(task.getExecutionId());
@@ -156,10 +162,13 @@ public class ApplicationServiceImpl extends BaseDaoImpl<TApplication> implements
 		
 		getSession().update(application);
 		
-		
 	}
 	
 	
+	public Set<String> getOutcomesByTaskId(String taskId){
+		//获取指定任务活动中所有流出的连线名称
+		return this.processEngine.getTaskService().getOutcomes(taskId);
+	}
 
 	@Override
 	public TApplication getById(Long id) {

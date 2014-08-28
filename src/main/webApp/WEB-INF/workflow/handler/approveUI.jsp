@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@include file="/common/taglibs.jsp" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -26,6 +27,13 @@
 			
 			
 			<textarea rows="10" cols="40" name="comment"></textarea>
+			<c:if test="${fn:length(outcomes)>1}">
+				<select name="outcome">
+					<c:forEach items="${outcomes}" var="outcome">
+						<option value="${outcome }">${outcome }</option>
+					</c:forEach>
+				</select>
+			</c:if>
 			
 			<a href="javascript:;" onclick="_submit('true');">同意</a>
 			<a href="javascript:;" onclick="_submit('false');">不同意</a>

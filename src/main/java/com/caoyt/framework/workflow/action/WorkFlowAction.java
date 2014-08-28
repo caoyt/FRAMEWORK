@@ -3,9 +3,11 @@ package com.caoyt.framework.workflow.action;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -42,6 +44,7 @@ import com.caoyt.framework.workflow.service.IApplicationService;
 	@Result(name="approveUI", location="approveUI.jsp"),
 	@Result(name="list", location="list.jsp"),
 	@Result(name="myTaskList", location="myTaskList.jsp"),
+	@Result(name="approveHistory", location="approveHistory.jsp"),
 	@Result(name="toMyTaskList", location="workflow!myTaskList.action", type="redirectAction"),
 	@Result(name="toList", location="workflow!myApplicationList.action", type="redirectAction")
 })
@@ -78,8 +81,11 @@ public class WorkFlowAction extends BaseAction{
 	private String taskId;
 	private boolean approval;
 	private String comment;
+	private Set<String> outcomes;
 	
+	private String outcome;
 	
+	private Set<TApproveInfo> approveHistory;
 	
 	/**
 	 * 提交申请页面 
@@ -93,6 +99,8 @@ public class WorkFlowAction extends BaseAction{
 	 * 审批处理页面 
 	 */
 	public String approveUI(){
+		
+		this.outcomes = this.applicationService.getOutcomesByTaskId(taskId);
 		
 		return "approveUI";
 	}
@@ -150,6 +158,19 @@ public class WorkFlowAction extends BaseAction{
 		return "myTaskList";
 	}
 	
+	
+	/**
+	 * 查看流转记录(审批历史信息)
+	 */
+	public String approveHistory(){
+		
+		TApplication application = this.applicationService.getById(applicationId);
+		
+		this.approveHistory = application.getApproveInfo();
+		
+		return "approveHistory";
+	}
+	
 	/**
 	 * 审批任务 
 	 */
@@ -168,8 +189,9 @@ public class WorkFlowAction extends BaseAction{
 		approveInfo.setSysUser(sysUser); //设置当前登录用户
 		approveInfo.setApplication(application);
 		
+		
 		//审批
-		this.applicationService.approve(approveInfo, taskId);
+		this.applicationService.approve(approveInfo, taskId, outcome);
 		
 		
 		return "toMyTaskList";
@@ -248,6 +270,30 @@ public class WorkFlowAction extends BaseAction{
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public Set<String> getOutcomes() {
+		return outcomes;
+	}
+
+	public void setOutcomes(Set<String> outcomes) {
+		this.outcomes = outcomes;
+	}
+
+	public String getOutcome() {
+		return outcome;
+	}
+
+	public void setOutcome(String outcome) {
+		this.outcome = outcome;
+	}
+
+	public Set<TApproveInfo> getApproveHistory() {
+		return approveHistory;
+	}
+
+	public void setApproveHistory(Set<TApproveInfo> approveHistory) {
+		this.approveHistory = approveHistory;
 	}
 	
 	

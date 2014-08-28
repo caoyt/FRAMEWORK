@@ -16,6 +16,10 @@
 		window.location.href = "workflow!approveUI.action?applicationId="+applicationId+"&taskId="+taskId;		
 	}
 
+	function approveHistory(applicationId){
+		window.location.href = "workflow!approveHistory.action?applicationId="+applicationId;
+	}
+
 </script>
 
 </head>
@@ -37,7 +41,7 @@
 				<td style="border:2px solid yellow;">
 					<a href="javascript:;" onclick="approveUI('${list.application.id}','${list.task.id }');">审批处理</a>
 						||
-					<a href="javascript:;">查看流转记录</a>
+					<a href="javascript:;" onclick="approveHistory('${list.application.id}');">查看流转记录</a>
 				</td>
 			</tr>
 		</c:forEach>
